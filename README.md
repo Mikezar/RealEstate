@@ -24,7 +24,9 @@ I am creating all services as a part of the scope, as it won't cause any issues 
 
 **FundaGatewayDecorator** could be part of **FundaGateway**, but keeping extra logic aside, that can be extended or changed is a better way. Decorator adds rate-liming.
 
-**FundaBrokerAdapter** is more an anti-corruption layer, that converts data from Funda to our domain concepts, also working with Funda API to fetch the required data in the needed format.
+**FundaBrokerAdapter** is more an anti-corruption layer, that converts data from Funda to our domain concepts, also working with Funda API to fetch the required data in the needed format. 
+As we need to get top 10 of real estate agents with the most objects, then we need to fetch all the data and aggregate them, so that we could process it further in the next step. 
+If the service gets a 401 error message, it will end the execution of the loop immediately, as it means the request limit was exceeded, which should not be the case as we use Polly, but the error may still occur (for example, the key is used in other applications).
 
 **BrokerService** is a high-level service, that does final aggregation. If something is changed in Funda, it would only affect the gateway and adapter service.
 

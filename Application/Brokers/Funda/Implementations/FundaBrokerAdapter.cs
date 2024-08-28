@@ -3,6 +3,7 @@ using Application.Common;
 using Domain.Offers;
 using Microsoft.Extensions.Logging;
 using System.Collections.Immutable;
+using System.Net;
 
 namespace Application.Brokers.Funda.Implementations;
 
@@ -57,9 +58,14 @@ internal sealed class FundaBrokerAdapter : IFundaBrokerAdapter
                 totalCount = result.TotaalAantalObjecten;
                 currentPage++;
             }
-            catch(Exception ex)
+            catch(HttpRequestException ex)
             {
                 _logger.LogError(ex.Message);
+
+                if (ex.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    break;
+                }
             }
         }
 

@@ -15,6 +15,11 @@ internal sealed class BrokerService : IBrokerService
 
     public async Task<BrokerWithRealEstateCount[]> GetTopBrokers(Query query, bool withGarden, int top = 10)
     {
+        if (query == Query.Empty)
+        {
+            return [];
+        }
+
         var brokersWithCounts = await _brokerAdapter.GetBrokersWithRealEstateObjectCount(query, withGarden);
         return brokersWithCounts
             .OrderByDescending(b => b.ObjectsCount)

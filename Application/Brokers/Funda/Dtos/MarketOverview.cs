@@ -2,7 +2,7 @@
 
 public sealed class MarketOverview
 {
-    public Object[] Objects { get; init; }
+    public FundaObject[] Objects { get; init; }
 
     public Paging Paging { get; init; }
 

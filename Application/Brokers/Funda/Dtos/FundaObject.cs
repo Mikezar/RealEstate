@@ -1,6 +1,6 @@
 ﻿namespace Application.Brokers.Funda.Dtos
 {
-    public class Object
+    public class FundaObject
     {
         public long MakelaarId { get; init; }
 

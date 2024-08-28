@@ -41,6 +41,11 @@ internal sealed class FundaBrokerAdapter : IFundaBrokerAdapter
                     WithGarden = withGarden
                 });
 
+                if (result.Objects.Length == 0) // No more objects to process, helps to break the cycle if for some reason we didn't yet process all objects, but received empty array
+                {
+                    break;
+                }
+   
                 foreach (var obj in result.Objects)
                 {
                     if (brokerCounts.ContainsKey(obj.MakelaarId))
@@ -55,7 +60,7 @@ internal sealed class FundaBrokerAdapter : IFundaBrokerAdapter
                 }
 
                 processedCount += result.Objects.Length;
-                totalCount = result.TotaalAantalObjecten;
+                totalCount = result.TotaalAantalObjecten; // May be changed dynamically (for example, new objects were added to the market)
                 currentPage++;
             }
             catch(HttpRequestException ex)

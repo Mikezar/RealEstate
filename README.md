@@ -33,5 +33,9 @@ If the service gets a 401 error message, it will end the execution of the loop i
 ## Important to know
 
 Polly pipeline rate-limits the calls to API based on the token bucket algorithm, once it reaches 100, it uses the queue to put not squeezed calls there, to process later. It means, that the program may take more than a minute to process all data not to exceed the set limit.
+
 Unfortunately, changing the parameter of **pagesize** to a different number doesn't affect the size of returned data.
+
 In case of exceeding the allowed number of requests per minute, Funda API seems to return 401 status code, instead of expected 429.
+
+I didn't take into account the possible overlapping /duplication of data between the pages (due to its dynamic change) so as not to overcomplicate the solution.

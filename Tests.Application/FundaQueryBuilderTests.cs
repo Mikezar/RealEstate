@@ -55,7 +55,7 @@ public class FundaQueryBuilderTests
             Location = "rotterdam",
             PageSize = 10,
             Type = QueryType.Buy,
-            WithGarden = true
+            WithGarden = false
         });
 
         // Assert

@@ -2,13 +2,13 @@
 
 ## Overview
 
-The project is divided into 3 main parts: Console, Domain, and Application.
+The project is divided into 3 main parts: Console, Domain, and Application (+tests)
 
 **Console** is only responsible for setting up dependencies and dispatching calls. It could be easier to create direct instances of the objects, but the solution is hard to maintain and makes it less portable, if the logic is required to be used in Web API project, for example. For the ease of debugging, I used the preprocessor directive.
 When running the application via cmd, **a search query**, which is the location of the search area, must be provided.
 Configuration for external API is stored in the configuration file.
 
-**Domain** is a tiny project, as it doesn't have many concepts, but its idea is to set the boundaries and make distinguish between the external objects we receive and internally used for the needs of the application.
+**Domain** is a tiny project, as it doesn't have many concepts, but its idea is to set the boundaries and distinguish between the external objects we receive and internally used for the needs of the application.
 
 **Application** includes all important logic of the application.
 
@@ -41,3 +41,5 @@ Unfortunately, changing the parameter of **pagesize** to a different number does
 In case of exceeding the allowed number of requests per minute, Funda API seems to return 401 status code, instead of expected 429.
 
 I didn't take into account the possible overlapping /duplication of data between the pages (due to its dynamic change) so as not to overcomplicate the solution.
+
+All main pieces of code are covered with unit tests.

@@ -3,7 +3,6 @@ using Application.Brokers.Funda.Dtos;
 using Application.Brokers.Funda.Implementations;
 using Application.Brokers.Funda.Interfaces;
 using Application.Common;
-using Domain.Offers;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;

@@ -20,13 +20,15 @@ using (var scope = provider.CreateScope())
 ```
 I am creating all services as a part of the scope, as it won't cause any issues with http connections and port availabilities, especially, if the applciation needs to work continuously and process multiple requests.
 
-**FundaGateway** service is responsible for translating required search options into Funda API concepts and making calls.
+**FundaGateway** service is responsible for making and handling calls to Funda API.
+
+**FundaQueryBuilder** translates search options into query string to meet Funda API specification. Having this as a separate injection helps to test the logic without the need to handle the complications of httpClient in tests.
 
 **FundaGatewayDecorator** could be part of **FundaGateway**, but keeping extra logic aside, that can be extended or changed is a better way. Decorator adds rate-liming.
 
 **FundaBrokerAdapter** is more an anti-corruption layer, that converts data from Funda to our domain concepts, also working with Funda API to fetch the required data in the needed format. 
 As we need to get top 10 of real estate agents with the most objects, then we need to fetch all the data and aggregate them, so that we could process it further in the next step. 
-If the service gets a 401 error message, it will end the execution of the loop immediately, as it means the request limit was exceeded, which should not be the case as we use Polly, but the error may still occur (for example, the key is used in other applications).
+If the service gets a 401 error message, it will end the execution of the loop immediately, as it means the request limit was exceeded, which should not be the case as we use Polly, but the error may still occur due to external factors (for example, the key is used in other applications, limit is changed).
 
 **BrokerService** is a high-level service, that does final aggregation. If something is changed in Funda, it would only affect the gateway and adapter service.
 

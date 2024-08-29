@@ -26,6 +26,7 @@ public static class ApplicationServices
         });
 
         services.Decorate<IFundaGateway, FundaGatewayDecorator>();
+        services.AddScoped<IFundaQueryBuilder, FundaQueryBuilder>();
         services.AddScoped<IBrokerService, BrokerService>();
         services.AddScoped<IFundaBrokerAdapter, FundaBrokerAdapter>();
         services.AddScoped<IWriter, ConsoleWriter>();

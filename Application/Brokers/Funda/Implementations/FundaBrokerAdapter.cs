@@ -28,7 +28,7 @@ internal sealed class FundaBrokerAdapter : IFundaBrokerAdapter
         var currentPage = 1;
         int? totalCount = null;
 
-        while (totalCount is null || processedCount < totalCount.Value)
+        while (totalCount is null || processedCount < totalCount.Value) // We need to run at least once to fetch totalCount
         {
             try
             {
